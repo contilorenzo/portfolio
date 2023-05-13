@@ -11,6 +11,7 @@ const Text = styled.div<{
     overflow: hidden;
     padding: 0 0.6rem;
     position: relative;
+    user-select: none;
     white-space: nowrap;
 
     &::after {

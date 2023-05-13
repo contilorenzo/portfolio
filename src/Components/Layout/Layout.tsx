@@ -10,7 +10,7 @@ const Layout = () => {
   return (
     <Styled.Layout>
       <Header />
-      <AnimatePresence>
+      <AnimatePresence initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path='/' element={<Homepage />} />
           <Route path='*' element={<NotFoundPage />} />

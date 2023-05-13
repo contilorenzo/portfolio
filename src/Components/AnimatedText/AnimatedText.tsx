@@ -1,6 +1,7 @@
 import Styled from './AnimatedText.styles'
 import { type Animation } from './types'
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
 const AnimatedText = ({
   animation,
@@ -35,7 +36,20 @@ const AnimatedText = ({
       $isCursorVisible={isCursorVisible}
       $textColor={textColor}
     >
-      <h2>{renderedText}</h2>
+      <h2>
+        {renderedText.split('').map((character, index) => (
+          <motion.span
+            whileHover={{
+              scale: 1.2,
+              opacity: 0.8,
+              padding: '0 0.4rem',
+            }}
+            key={`${character}${index}`}
+          >
+            {character}
+          </motion.span>
+        ))}
+      </h2>
     </Styled.Text>
   )
 }

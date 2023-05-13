@@ -9,6 +9,7 @@ const Header = styled.div`
   padding: 1rem;
   position: fixed;
   top: 0;
+  z-index: 999;
 `
 
 const NavigationItem = styled.div`
