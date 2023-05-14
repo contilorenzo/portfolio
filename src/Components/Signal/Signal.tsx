@@ -3,7 +3,7 @@ import { Direction } from './types'
 import React from 'react'
 import { motion } from 'framer-motion'
 
-const Signal = ({ direction, icon, text, transitionDelay }: Props) => {
+const Signal = ({ direction, icon, onClick, text, transitionDelay }: Props) => {
   const signalsAnimation = {
     whileHover: {
       scale: 1.15,
@@ -13,18 +13,18 @@ const Signal = ({ direction, icon, text, transitionDelay }: Props) => {
       },
     },
     initial: {
+      opacity: 0,
       x: '-1rem',
       y: window.innerHeight,
     },
     animate: {
+      opacity: 1,
       x: 0,
       y: 0,
       transition: {
-        y: {
+        opacity: {
           delay: transitionDelay,
-          duration: 1,
-          type: 'spring',
-          stiffness: 50,
+          duration: 0.8,
         },
         x: {
           delay: transitionDelay,
@@ -33,12 +33,18 @@ const Signal = ({ direction, icon, text, transitionDelay }: Props) => {
           repeatType: 'mirror',
           type: 'spring',
         },
+        y: {
+          delay: transitionDelay,
+          duration: 1,
+          type: 'spring',
+          stiffness: 50,
+        },
       },
     },
   }
 
   return (
-    <motion.div {...signalsAnimation}>
+    <motion.div {...signalsAnimation} onClick={onClick}>
       <Styled.Signal $direction={direction}>
         {direction === Direction.Right && icon}
         {text}

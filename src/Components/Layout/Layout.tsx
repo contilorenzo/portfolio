@@ -1,9 +1,9 @@
 import Styled from './Layout.styles'
 import { Route, Routes, useLocation } from 'react-router-dom'
-import Homepage from '../../pages/Homepage/Homepage'
 import { AnimatePresence } from 'framer-motion'
 import Header from '../Header/Header'
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage'
+import { routes } from '../../utils/routes'
 
 const Layout = () => {
   const location = useLocation()
@@ -12,7 +12,13 @@ const Layout = () => {
       <Header />
       <AnimatePresence>
         <Routes location={location} key={location.pathname}>
-          <Route path='/' element={<Homepage />} />
+          {routes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={route.component}
+            />
+          ))}
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </AnimatePresence>
