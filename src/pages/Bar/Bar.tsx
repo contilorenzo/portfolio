@@ -37,6 +37,20 @@ const contentAnimation = {
   },
 }
 
+const personAnimation = {
+  initial: {
+    y: window.innerHeight,
+  },
+  animate: {
+    y: 0,
+  },
+  transition: {
+    duration: 1.6,
+    delay: 3.2,
+    type: 'spring',
+  },
+}
+
 const Bar = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -55,7 +69,18 @@ const Bar = () => {
         <Styled.Header as={motion.div} {...neonAnimation}>
           <NeonText text='Foo-Bar' color={theme.colors.neon} fontSize='14rem' />
         </Styled.Header>
-        <Styled.Content as={motion.div} {...contentAnimation}></Styled.Content>
+        <Styled.Content as={motion.div} {...contentAnimation}>
+          <Styled.Person
+            as={motion.div}
+            {...personAnimation}
+            $color='green'
+          ></Styled.Person>
+          <Styled.Person
+            as={motion.div}
+            {...personAnimation}
+            $color='yellow'
+          ></Styled.Person>
+        </Styled.Content>
       </Styled.Bar>
     </motion.section>
   )
