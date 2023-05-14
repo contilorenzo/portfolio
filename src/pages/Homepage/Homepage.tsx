@@ -65,6 +65,7 @@ const Homepage = () => {
           animation={{ duration: 2000, delay: 2100 }}
           cursorColor={theme.colors.textHover}
           keepCursor
+          gradient={theme.colors.gradient}
         />
         {renderSignals()}
       </Styled.Homepage>

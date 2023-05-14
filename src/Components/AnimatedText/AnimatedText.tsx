@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 const AnimatedText = ({
   animation,
   cursorColor = 'orange',
+  gradient,
   keepCursor = false,
   text,
   textColor = 'white',
@@ -34,6 +35,7 @@ const AnimatedText = ({
     <Styled.Text
       $cursorColor={cursorColor}
       $isCursorVisible={isCursorVisible}
+      $gradient={gradient}
       $textColor={textColor}
     >
       <h2>
@@ -41,7 +43,6 @@ const AnimatedText = ({
           <motion.span
             whileHover={{
               scale: 1.2,
-              opacity: 0.8,
               padding: '0 0.4rem',
             }}
             key={`${character}${index}`}
@@ -57,6 +58,7 @@ const AnimatedText = ({
 export interface Props {
   animation: Animation
   cursorColor?: string
+  gradient?: string
   keepCursor?: boolean
   text: string
   textColor?: string

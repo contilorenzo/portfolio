@@ -1,12 +1,20 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const Text = styled.div<{
   $cursorColor: string
   $isCursorVisible?: boolean
+  $gradient?: string
   $textColor: string
 }>`
   & > h2 {
     color: ${({ $textColor }) => $textColor};
+    ${({ $gradient }) =>
+      $gradient &&
+      css`
+        background: ${$gradient};
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      `}
     margin: 0 auto;
     overflow: hidden;
     padding: 0 0.6rem;
