@@ -6,6 +6,33 @@ import { Helmet } from 'react-helmet-async'
 import AnimatedText from '../../Components/AnimatedText/AnimatedText'
 import { useTheme } from 'styled-components'
 import { type ThemeType } from '../../theme'
+import Signal from '../../Components/Signal/Signal'
+import { Direction } from '../../Components/Signal/types'
+import {
+  FilterFrames,
+  FilterFramesSharp,
+  LocalDrink,
+  LocalDrinkSharp,
+} from '@mui/icons-material'
+
+const renderSignals = () => {
+  return (
+    <Styled.Signals>
+      <Signal
+        direction={Direction.Left}
+        icon={<FilterFramesSharp />}
+        text='Museum'
+        transitionDelay={5.2}
+      />
+      <Signal
+        direction={Direction.Right}
+        icon={<LocalDrinkSharp />}
+        text='Bar'
+        transitionDelay={5.3}
+      />
+    </Styled.Signals>
+  )
+}
 
 const Homepage = () => {
   useEffect(() => {
@@ -13,8 +40,6 @@ const Homepage = () => {
   }, [])
 
   const theme = useTheme() as ThemeType
-
-  console.log(theme)
 
   return (
     <motion.section {...fadeInOut}>
@@ -31,15 +56,16 @@ const Homepage = () => {
           cursorColor={theme.colors.textHover}
         />
         <AnimatedText
-          text='Wanna hang out ?'
+          text='Wanna hang out?'
           textColor={theme.colors.textHover}
           animation={{ duration: 2500, delay: 2600 }}
           cursorColor={theme.colors.textHover}
           keepCursor
         />
+        {renderSignals()}
       </Styled.Homepage>
     </motion.section>
   )
 }
 
-export default Homepage;
+export default Homepage

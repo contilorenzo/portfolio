@@ -11,6 +11,14 @@ const Homepage = styled.div`
   width: 100%;
 `
 
+const Signals = styled.div`
+  align-items: center;
+  display: flex;
+  gap: 4rem;
+  justify-content: space-between;
+`
+
 export default {
   Homepage,
+  Signals,
 }
