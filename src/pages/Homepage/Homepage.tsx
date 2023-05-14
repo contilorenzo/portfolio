@@ -8,27 +8,31 @@ import { useTheme } from 'styled-components'
 import { type ThemeType } from '../../theme'
 import Signal from '../../Components/Signal/Signal'
 import { Direction } from '../../Components/Signal/types'
-import {
-  FilterFrames,
-  FilterFramesSharp,
-  LocalDrink,
-  LocalDrinkSharp,
-} from '@mui/icons-material'
+import { FilterFramesSharp, LocalDrinkSharp } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
 
 const renderSignals = () => {
+  const navigate = useNavigate()
+
   return (
     <Styled.Signals>
       <Signal
         direction={Direction.Left}
         icon={<FilterFramesSharp />}
         text='Museum'
-        transitionDelay={5.2}
+        transitionDelay={4.2}
+        onClick={() => {
+          navigate('/museum')
+        }}
       />
       <Signal
         direction={Direction.Right}
         icon={<LocalDrinkSharp />}
         text='Bar'
-        transitionDelay={5.3}
+        transitionDelay={4.3}
+        onClick={() => {
+          navigate('/bar')
+        }}
       />
     </Styled.Signals>
   )
@@ -52,13 +56,13 @@ const Homepage = () => {
         <AnimatedText
           text='Hi, Lorenzo here!'
           textColor={theme.colors.text}
-          animation={{ duration: 2500 }}
+          animation={{ duration: 2000 }}
           cursorColor={theme.colors.textHover}
         />
         <AnimatedText
           text='Wanna hang out?'
           textColor={theme.colors.textHover}
-          animation={{ duration: 2500, delay: 2600 }}
+          animation={{ duration: 2000, delay: 2100 }}
           cursorColor={theme.colors.textHover}
           keepCursor
         />

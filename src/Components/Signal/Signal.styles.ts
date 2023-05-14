@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { type Direction } from './types'
+import { Direction } from './types'
 
 const Signal = styled.div<{ $direction: Direction }>`
   align-items: center;
@@ -15,7 +15,26 @@ const Signal = styled.div<{ $direction: Direction }>`
   justify-content: center;
   margin-top: 3rem;
   position: relative;
+  transition: all 300ms ease-in-out;
   width: 16rem;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => theme.colors.backgroundSecondary};
+
+    &::after {
+      ${({ $direction }) =>
+        $direction === Direction.Right
+          ? css`
+              border-color: transparent transparent transparent
+                ${({ theme }) => theme.colors.text};
+            `
+          : css`
+              border-color: transparent ${({ theme }) => theme.colors.text}
+                transparent transparent;
+            `}
+    }
+  }
 
   & > svg {
     font-size: 2.8rem;
@@ -29,6 +48,7 @@ const Signal = styled.div<{ $direction: Direction }>`
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    transition: all 300ms ease-in-out;
     width: 0;
   }
 

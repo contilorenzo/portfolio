@@ -13,9 +13,11 @@ const Signal = ({ direction, icon, text, transitionDelay }: Props) => {
       },
     },
     initial: {
+      x: '-1rem',
       y: window.innerHeight,
     },
     animate: {
+      x: 0,
       y: 0,
       transition: {
         y: {
@@ -23,6 +25,13 @@ const Signal = ({ direction, icon, text, transitionDelay }: Props) => {
           duration: 1,
           type: 'spring',
           stiffness: 50,
+        },
+        x: {
+          delay: transitionDelay,
+          duration: 1,
+          repeat: Infinity,
+          repeatType: 'mirror',
+          type: 'spring',
         },
       },
     },
@@ -42,6 +51,7 @@ const Signal = ({ direction, icon, text, transitionDelay }: Props) => {
 export interface Props {
   direction: Direction
   icon: React.ReactElement
+  onClick?: () => void
   text: string
   transitionDelay: number
 }
