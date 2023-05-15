@@ -1,6 +1,6 @@
 import Styled from './Bar.styles'
-import { useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { motion, useAnimationControls } from 'framer-motion'
 import { fadeInOut } from '../../utils/motion'
 import { Helmet } from 'react-helmet-async'
 import NeonText from '../../Components/NeonText/NeonText'
@@ -51,27 +51,63 @@ const personAnimation = {
   },
 }
 
-const balloonAnimation = {
-  initial: {
-    scaleX: 0,
-    transformOrigin: 'right',
+const balloonVariants = {
+  hidden: {
+    opacity: 0,
+    rotateY: 0,
+    scale: 0,
+    transformOrigin: 'bottom',
   },
-  animate: {
-    scaleX: 1,
-  },
-  transition: {
-    duration: 1.6,
-    delay: 3.5,
-    type: 'spring',
+  visible: {
+    opacity: 1,
+    rotateY: 0,
+    scale: 1,
   },
 }
 
+const messages = [
+  '',
+  'Hello',
+  'Hi!',
+  'How are you?',
+  'I am fine, thanks',
+  'What are you doing?',
+  'I am working',
+  'What are you working on?',
+  'I am working on a website',
+  'What kind of website?',
+  'A website for a friend',
+]
+
 const Bar = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  const [messageIndex, setMessageIndex] = useState(0)
 
   const theme = useTheme() as ThemeType
+
+  const rightControls = useAnimationControls()
+  const leftControls = useAnimationControls()
+
+  useEffect(() => {
+    leftControls
+      .start('hidden')
+      .then(() => null)
+      .catch(() => null)
+    rightControls
+      .start('hidden')
+      .then(() => null)
+      .catch(() => null)
+  }, [])
+
+  const handleClick = async () => {
+    const isIndexEven = (i: number) => i % 2 === 0
+    await (isIndexEven(messageIndex) ? leftControls : rightControls).start(
+      'hidden'
+    )
+    setMessageIndex(messageIndex + 1)
+    await (isIndexEven(messageIndex + 1) ? leftControls : rightControls).start(
+      'visible'
+    )
+  }
 
   return (
     <motion.section {...fadeInOut}>
@@ -84,7 +120,11 @@ const Bar = () => {
         <Styled.Header as={motion.div} {...neonAnimation}>
           <NeonText text='Foo-Bar' color={theme.colors.neon} fontSize='14rem' />
         </Styled.Header>
-        <Styled.Content as={motion.div} {...contentAnimation}>
+        <Styled.Content
+          as={motion.div}
+          {...contentAnimation}
+          onClick={handleClick}
+        >
           <Styled.Person
             as={motion.div}
             {...personAnimation}
@@ -93,8 +133,18 @@ const Bar = () => {
           <Styled.Balloons>
             <Styled.Balloon
               as={motion.div}
-              {...balloonAnimation}
-            ></Styled.Balloon>
+              variants={balloonVariants}
+              animate={leftControls}
+            >
+              {messages[messageIndex]}
+            </Styled.Balloon>
+            <Styled.BalloonLeft
+              as={motion.div}
+              variants={balloonVariants}
+              animate={rightControls}
+            >
+              {messages[messageIndex]}
+            </Styled.BalloonLeft>
           </Styled.Balloons>
           <Styled.Person
             as={motion.div}

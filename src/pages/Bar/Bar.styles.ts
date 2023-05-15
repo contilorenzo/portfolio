@@ -79,8 +79,24 @@ const Balloon = styled.div`
   background-color: #f3f3f3;
   box-shadow: inset -25px -25px 40px rgba(0, 0, 0, 0.5);
   clip-path: polygon(3% 4%, 100% 0, 96% 61%, 100% 100%, 87% 93%, 0 91%);
+  display: grid;
+  font-weight: bold;
+  font-size: 1.6rem;
   height: 8rem;
+  place-items: center;
   width: 100%;
+`
+
+const BalloonLeft = styled(Balloon)`
+  clip-path: polygon(
+    5% 1%,
+    98% 4%,
+    100% 91%,
+    24% 88%,
+    5% 100%,
+    11% 85%,
+    2% 79%
+  );
 `
 
 const Balloons = styled.div`
@@ -94,6 +110,7 @@ const Balloons = styled.div`
 
 export default {
   Balloon,
+  BalloonLeft,
   Balloons,
   Bar,
   Content,
