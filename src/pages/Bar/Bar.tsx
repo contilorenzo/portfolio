@@ -16,7 +16,7 @@ const neonAnimation = {
   },
   transition: {
     duration: 1,
-    delay: 2,
+    delay: 1.5,
   },
 }
 
@@ -33,7 +33,7 @@ const contentAnimation = {
   },
   transition: {
     duration: 1.6,
-    delay: 2,
+    delay: 1.5,
   },
 }
 
@@ -46,7 +46,7 @@ const personAnimation = {
   },
   transition: {
     duration: 1.6,
-    delay: 3.2,
+    delay: 2.5,
     type: 'spring',
   },
 }
