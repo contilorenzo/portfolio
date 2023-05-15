@@ -51,6 +51,21 @@ const personAnimation = {
   },
 }
 
+const balloonAnimation = {
+  initial: {
+    scaleX: 0,
+    transformOrigin: 'right',
+  },
+  animate: {
+    scaleX: 1,
+  },
+  transition: {
+    duration: 1.6,
+    delay: 3.5,
+    type: 'spring',
+  },
+}
+
 const Bar = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -75,6 +90,12 @@ const Bar = () => {
             {...personAnimation}
             $color='green'
           ></Styled.Person>
+          <Styled.Balloons>
+            <Styled.Balloon
+              as={motion.div}
+              {...balloonAnimation}
+            ></Styled.Balloon>
+          </Styled.Balloons>
           <Styled.Person
             as={motion.div}
             {...personAnimation}
