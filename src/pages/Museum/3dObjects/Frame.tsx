@@ -12,6 +12,8 @@ function Frame({ wireframe, position, rotation }: Props) {
 
   return (
     <mesh
+      castShadow
+      receiveShadow
       ref={ref}
       position={position}
       rotation={rotation}
@@ -29,7 +31,7 @@ function Frame({ wireframe, position, rotation }: Props) {
       <boxGeometry args={[4, 6, 0.5]} />
       <meshStandardMaterial
         wireframe={wireframe}
-        color={hovered ? 'pink' : 'gray'}
+        color={hovered ? 'gray' : 'gray'}
       />
     </mesh>
   )
