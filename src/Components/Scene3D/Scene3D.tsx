@@ -86,7 +86,7 @@ const Scene3D = () => {
   return (
     <>
       <OrbitControls />
-      <ambientLight intensity={0.1} />
+      <ambientLight intensity={0.05} />
       {renderSpotLights()}
       <Frame position={[0, 3, 0]} rotation={[-0.2, 0, 0]} />
       <Frame position={[5, 3, 0]} rotation={[-0.2, -0.2, 0]} />

@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { type Vector3 } from '@react-three/fiber'
+import { RoundedBox } from '@react-three/drei'
+import { MeshStandardMaterial } from 'three'
 // import { useFrame } from '@react-three/fiber'
 
 function Frame({ wireframe, position, rotation }: Props) {
@@ -7,33 +9,28 @@ function Frame({ wireframe, position, rotation }: Props) {
   const [hovered, setHovered] = useState(false)
   const [clicked, setClicked] = useState(false)
 
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  // useFrame(() => (ref.current.rotation.x += 0.01))
-
   return (
-    <mesh
-      castShadow
-      receiveShadow
-      ref={ref}
+    <RoundedBox
+      args={[4, 6, 0.4]}
+      material={new MeshStandardMaterial({ color: 'gray' })}
+      radius={0.05}
+      smoothness={100}
       position={position}
       rotation={rotation}
-      scale={clicked ? 1.2 : 1}
+      ref={ref}
+      onPointerOver={() => {
+        setHovered(true)
+      }}
+      onPointerOut={() => {
+        setHovered(false)
+      }}
       onClick={() => {
         setClicked(!clicked)
       }}
-      onPointerOver={(event) => {
-        setHovered(true)
-      }}
-      onPointerOut={(event) => {
-        setHovered(false)
-      }}
-    >
-      <boxGeometry args={[4, 6, 0.5]} />
-      <meshStandardMaterial
-        wireframe={wireframe}
-        color={hovered ? 'gray' : 'gray'}
-      />
-    </mesh>
+      wireframe={wireframe}
+      castShadow
+      receiveShadow
+    />
   )
 }
 
