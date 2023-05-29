@@ -8,8 +8,8 @@ import Frame from '../../pages/Museum/3dObjects/Frame'
 import { MeshStandardMaterial, TextureLoader, Vector3 } from 'three'
 import { type ReactElement, useRef } from 'react'
 import { useFrame, useLoader, useThree } from '@react-three/fiber'
-import wallImg from '../../../public/images/black-brick-wall.jpg'
-import floorImg from '../../../public/images/carpet.jpg'
+import wallImg from '../../../src/images/black-brick-wall.jpg'
+import floorImg from '../../../src/images/carpet.jpg'
 
 function MovingSpot({ vec = new Vector3(), ...props }) {
   const light = useRef()
@@ -48,19 +48,19 @@ const renderSpotLights = (): ReactElement[] => {
   const spotlights: Spotlight[] = [
     {
       position: new Vector3(3, 7, 4),
-      color: 'white',
+      color: 'lightblue',
     },
     {
       position: new Vector3(-3, 7, 4),
+      color: 'lightblue',
+    },
+    {
+      position: new Vector3(7, 7, 5),
       color: 'white',
     },
     {
-      position: new Vector3(7, 7, 4),
-      color: 'white',
-    },
-    {
-      position: new Vector3(-7, 7, 4),
-      color: 'white',
+      position: new Vector3(-7, 7, 5),
+      color: 'pink',
     },
   ]
 
@@ -79,20 +79,60 @@ interface Spotlight {
   color: string
 }
 
+interface Frame {
+  position: Vector3
+  rotation: [number, number, number]
+}
+
 const Scene3D = () => {
   const wallTexture = useLoader(TextureLoader, wallImg)
   const floorTexture = useLoader(TextureLoader, floorImg)
+  const camera = useThree((state) => state.camera)
+
+  const onClickFunction = (position: Vector3) => {
+    const xPosition = position.x > 0 ? position.x - 4 : position.x + 4
+
+    camera.position.lerp(position, 0.5)
+  }
+
+  const frames: Frame[] = [
+    {
+      position: new Vector3(0, 3, 0),
+      rotation: [-0.2, 0, 0],
+    },
+    {
+      position: new Vector3(5, 3, 0),
+      rotation: [-0.2, -0.2, 0],
+    },
+    {
+      position: new Vector3(-5, 3, 0),
+      rotation: [-0.2, 0.2, 0],
+    },
+    {
+      position: new Vector3(10, 3, 1),
+      rotation: [-0.2, -0.4, 0],
+    },
+    {
+      position: new Vector3(-10, 3, 1),
+      rotation: [-0.2, 0.4, 0],
+    },
+  ]
 
   return (
     <>
       <OrbitControls />
       <ambientLight intensity={0.05} />
       {renderSpotLights()}
-      <Frame position={[0, 3, 0]} rotation={[-0.2, 0, 0]} />
-      <Frame position={[5, 3, 0]} rotation={[-0.2, -0.2, 0]} />
-      <Frame position={[-5, 3, 0]} rotation={[-0.2, 0.2, 0]} />
-      <Frame position={[10, 3, 1]} rotation={[-0.2, -0.4, 0]} />
-      <Frame position={[-10, 3, 1]} rotation={[-0.2, 0.4, 0]} />
+      {frames.map((frame: Frame) => (
+        <Frame
+          key={frame.position.x}
+          position={frame.position}
+          rotation={frame.rotation as unknown as Vector3}
+          onClickFunction={(pos) => {
+            onClickFunction(pos)
+          }}
+        />
+      ))}
       {[-24, -12, 0, 12, 24].map((x) => (
         <Plane
           args={[12, 12]}

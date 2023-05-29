@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react'
-import { type Vector3 } from '@react-three/fiber'
+import { type Vector3 } from 'three'
 import { RoundedBox } from '@react-three/drei'
 import { MeshStandardMaterial } from 'three'
 // import { useFrame } from '@react-three/fiber'
 
-function Frame({ wireframe, position, rotation }: Props) {
+function Frame({ wireframe, position, rotation, onClickFunction }: Props) {
   const ref = useRef()
   const [hovered, setHovered] = useState(false)
   const [clicked, setClicked] = useState(false)
@@ -25,6 +25,7 @@ function Frame({ wireframe, position, rotation }: Props) {
         setHovered(false)
       }}
       onClick={() => {
+        !!onClickFunction && onClickFunction(position)
         setClicked(!clicked)
       }}
       wireframe={wireframe}
@@ -38,6 +39,8 @@ export interface Props {
   position: Vector3
   rotation: Vector3
   wireframe?: boolean
+
+  onClickFunction?: (position: Vector3) => void
 }
 
 export default Frame
